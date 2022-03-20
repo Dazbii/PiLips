@@ -15,37 +15,37 @@
 
   <ItemGroup>
     <Reference Include="Tao.Cg">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Cg.dll</HintPath>
+      <HintPath>OpenGL\Tao.Cg.dll</HintPath>
     </Reference>
     <Reference Include="Tao.DevIl">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.DevIl.dll</HintPath>
+      <HintPath>OpenGL\Tao.DevIl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.FreeGlut">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.FreeGlut.dll</HintPath>
+      <HintPath>OpenGL\Tao.FreeGlut.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Glfw">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Glfw.dll</HintPath>
+      <HintPath>OpenGL\Tao.Glfw.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Lua">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Lua.dll</HintPath>
+      <HintPath>OpenGL\Tao.Lua.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Ode">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Ode.dll</HintPath>
+      <HintPath>OpenGL\Tao.Ode.dll</HintPath>
     </Reference>
     <Reference Include="Tao.OpenAl">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.OpenAl.dll</HintPath>
+      <HintPath>OpenGL\Tao.OpenAl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.OpenGl">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.OpenGl.dll</HintPath>
+      <HintPath>OpenGL\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.PhysFs">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.PhysFs.dll</HintPath>
+      <HintPath>OpenGL\Tao.PhysFs.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>OpenGL\Tao.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Sdl">
-      <HintPath>..\..\..\..\Desktop\New folder\Debug\Tao.Sdl.dll</HintPath>
+      <HintPath>OpenGL\Tao.Sdl.dll</HintPath>
     </Reference>
   </ItemGroup>
 
