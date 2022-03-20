@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.vs/ConsoleApp1/v16/.suo
+.vs/PiLips/v16/.suo
