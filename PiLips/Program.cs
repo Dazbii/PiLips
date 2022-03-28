@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Linq;
-using Tao.FreeGlut;
-using Tao.OpenGl;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 
 namespace Leap
 {
@@ -49,6 +50,9 @@ namespace Leap
 
         public static byte[] latestImage;
 
+        public static string window = "Video Feed";
+        public static Mat mat;
+
         static void Main(string[] args)
         {
             controller = new Controller();
@@ -62,8 +66,20 @@ namespace Leap
             controller.ImageReady += OnImageReady;
             if (!WaitForEvent("No image has been fetched")) return;
 
-            // Start rendering the images
-            RenderImage();
+            CvInvoke.NamedWindow(window);
+            mat = new Mat(deviceInfo.Width * 2, deviceInfo.Height, DepthType.Cv8U, 1);
+            mat.SetTo(latestImage);
+            CvInvoke.Imshow(window, mat);
+
+            while (true)
+            {
+                var key = CvInvoke.WaitKey(16);
+                RenderImage();
+                if ((char)key == 27) // ESC
+                {
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -82,6 +98,9 @@ namespace Leap
 
         public static void OnImageReady(object source, ImageEventArgs args)
         {
+            // Push the image byte array to latestImage
+            latestImage = args.image.Data(Image.CameraType.LEFT); // CameraType.LEFT seems to make no difference here
+
             // Set deviceInfo and print values if this is the first image we got
             if (firstCall)
             {
@@ -110,11 +129,9 @@ namespace Leap
                     deviceInfo.ByteOffsetLeft,
                     deviceInfo.ByteOffsetRight);
                 firstCall = false;
+                Console.WriteLine("Setting wait");
                 waitHandle.Set();
             }
-            
-            // Push the image byte array to latestImage
-            latestImage = args.image.Data(Image.CameraType.LEFT); // CameraType.LEFT seems to make no difference here
         }
 
         /// <summary>
@@ -127,11 +144,15 @@ namespace Leap
         {
             try
             {
-                waitHandle.WaitOne(waitTime);
+                if (!waitHandle.WaitOne(waitTime))
+                {
+                    Console.WriteLine(errorMesage);
+                    return false;
+                }
             }
             catch
             {
-                Console.WriteLine("Images policy was not set properly");
+                Console.WriteLine(errorMesage);
                 return false;
             }
             return true;
@@ -139,49 +160,11 @@ namespace Leap
 
         public static void RenderImage()
         {
-            Glut.glutInit();
-            Glut.glutInitDisplayMode(Glut.GLUT_SINGLE);
-
-            Glut.glutInitWindowPosition(100, 100);
-            Glut.glutInitWindowSize(deviceInfo.Width * 2, deviceInfo.Height);
-            Glut.glutCreateWindow("Video Preview");
-
-            Glut.glutDisplayFunc(Display);
-            Glut.glutIdleFunc(Display);
-            Glut.glutMainLoop();
-        }
-
-        /// <summary>
-        /// The main OpenGL display loop for Glut
-        /// </summary>
-        static void Display()
-        {
-            Gl.glEnable(Gl.GL_TEXTURE_2D);
-            Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
-            Gl.glTexParameteri(Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
-
-            RenderImage(0, latestImage.Skip((int)deviceInfo.ByteOffsetLeft).Take((int)deviceInfo.NumBytes).ToArray());
-            RenderImage(-1, latestImage.Skip((int)deviceInfo.ByteOffsetRight).Take((int)deviceInfo.NumBytes).ToArray());
-
-            Glut.glutSwapBuffers();
-        }
-
-        /// <summary>
-        /// Draws a byte array as a monochrome image
-        /// </summary>
-        /// <param name="x"> The x value of the left of the image </param>
-        /// <param name="image"> The monochrome byte array to draw </param>
-        static void RenderImage(float x, byte[] image)
-        {
-            float y = -1, w = 1, h = 2;
-
-            Gl.glTexImage2D(Gl.GL_TEXTURE_2D, 0, Gl.GL_LUMINANCE, deviceInfo.Width, deviceInfo.Height, 0, Gl.GL_RED, Gl.GL_UNSIGNED_BYTE, image);
-            Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f(0f, 1f); Gl.glVertex3f(x, y, 0.0f);
-            Gl.glTexCoord2f(0f, 0f); Gl.glVertex3f(x, y + h, 0.0f);
-            Gl.glTexCoord2f(1f, 0f); Gl.glVertex3f(x + w, y + h, 0.0f);
-            Gl.glTexCoord2f(1f, 1f); Gl.glVertex3f(x + w, y, 0.0f);
-            Gl.glEnd();
+            if (mat != null)
+            {
+                mat.SetTo(latestImage);
+                CvInvoke.Imshow(window, mat);
+            }
         }
     }
 }

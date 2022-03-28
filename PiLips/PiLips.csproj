@@ -14,6 +14,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.5.5.4823" />
+    <PackageReference Include="OpenCvSharp4.Windows" Version="4.5.5.20211231" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Emgu.CV.Bitmap">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.Bitmap.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.DebuggerVisualizers">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.DebuggerVisualizers.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Models">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetCore">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.Platform.NetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetFramework">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.Platform.NetFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetStandard">
+      <HintPath>..\..\..\..\Desktop\New folder (4)\libs\Emgu.CV.Platform.NetStandard.dll</HintPath>
+    </Reference>
     <Reference Include="Tao.Cg">
       <HintPath>OpenGL\Tao.Cg.dll</HintPath>
     </Reference>
